@@ -172,3 +172,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# Geospatial
+*.tif
+*.tiff
+*.tif.aux.xml
+*.tiff.aux.xml
