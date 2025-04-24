@@ -1,4 +1,4 @@
-![Gif showing planes within dataset](assets/plane_gif.gif)
+![Gif showing planes within dataset](assets/plane_gif.gif) ![Bar chart showing counts for each category of label](assets/object_count.jpg)
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
 [![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)](#)

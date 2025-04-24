@@ -18,6 +18,7 @@ import constants
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
 
+
 def create_gif():
     logger.info("Loading image index for processing!")
     image_records = gpd.read_file(constants.LABEL_INDEX_FILE)
@@ -33,7 +34,9 @@ def create_gif():
             continue
 
         if not os.path.exists(label_path):
-            logger.error(f"Labels for ID {image_record['id']} does not exist! Skipping!")
+            logger.error(
+                f"Labels for ID {image_record['id']} does not exist! Skipping!"
+            )
             continue
 
         logger.info("Reading in labels and image")
@@ -44,7 +47,9 @@ def create_gif():
             # Get centroid and buffer by set amount to ensure each gif frame is
             # consistent size wise
             centroid = label.geometry.centroid
-            buffered_centroid = shapely.buffer(centroid, distance=50, cap_style="square", join_style="mitre")
+            buffered_centroid = shapely.buffer(
+                centroid, distance=50, cap_style="square", join_style="mitre"
+            )
 
             # Now we can read in a window via rasterio and export to jpg
             out_image, out_transform = rasterio.mask.mask(
@@ -72,17 +77,21 @@ def create_gif():
     gif_imgs = []
     for img_path in chip_paths[:250]:
         gif_imgs.append(Image.open(img_path).resize((200, 200), Image.BILINEAR))
-    
+
     logger.info("Saving final gif!")
-    gif_imgs[0].save("assets/plane_gif.gif", save_all=True, append_images=gif_imgs[1:], quality=80, optimize=True, duration=250, loop=0)
+    gif_imgs[0].save(
+        "assets/plane_gif.gif",
+        save_all=True,
+        append_images=gif_imgs[1:],
+        quality=80,
+        optimize=True,
+        duration=250,
+        loop=0,
+    )
 
     logger.info("Cleaning up temporary directory!")
     temp_directory.cleanup()
     logger.info("Gif creation completed!")
-
-
-
-
 
 
 if __name__ == "__main__":
